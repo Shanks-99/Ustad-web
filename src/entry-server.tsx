@@ -1,0 +1,124 @@
+import { renderToString } from "react-dom/server";
+import { StaticRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { ROUTES } from "./routes.config.ts";
+
+// Component imports - keep alphabetized for maintainability
+import ALevelPage from "./app/ALevelPage.tsx";
+import AboutPage from "./app/AboutPage.tsx";
+import AccountingPage from "./app/AccountingPage.tsx";
+import AmericanCurriculumPage from "./app/AmericanCurriculumPage.tsx";
+import APPage from "./app/APPage.tsx";
+import App from "./app/App.tsx";
+import BiologyPage from "./app/BiologyPage.tsx";
+import BlogsPage from "./app/BlogsPage.tsx";
+import BritishCurriculumPage from "./app/BritishCurriculumPage.tsx";
+import BusinessPage from "./app/BusinessPage.tsx";
+import ChemistryPage from "./app/ChemistryPage.tsx";
+import ContactPage from "./app/ContactPage.tsx";
+import CurriculumPage from "./app/CurriculumPage.tsx";
+import DPHLPage from "./app/DPHLPage.tsx";
+import DPSLPage from "./app/DPSLPage.tsx";
+import EconomicsPage from "./app/EconomicsPage.tsx";
+import EngineeringPage from "./app/EngineeringPage.tsx";
+import EnglishPage from "./app/EnglishPage.tsx";
+import ExamPreparationPage from "./app/ExamPreparationPage.tsx";
+import FinancePage from "./app/FinancePage.tsx";
+import GCSEPage from "./app/GCSEPage.tsx";
+import HighSchoolPage from "./app/HighSchoolPage.tsx";
+import HowItWorksPage from "./app/HowItWorksPage.tsx";
+import IBCurriculumPage from "./app/IBCurriculumPage.tsx";
+import ExamPanicBlog from "./app/ExamPanicBlog.tsx";
+import IGCSEMathsLowMarksBlog from "./app/IGCSEMathsLowMarksBlog.tsx";
+import IGCSEPage from "./app/IGCSEPage.tsx";
+import ChemistryLandingPage from "./app/ChemistryLandingPage.tsx";
+import BiologyLanding from "./app/BiologyLanding.tsx";
+import MathematicsLanding from "./app/MathematicsLanding.tsx";
+import MathsPage from "./app/MathsPage.tsx";
+import MiddleSchoolPage from "./app/MiddleSchoolPage.tsx";
+import MYPPage from "./app/MYPPage.tsx";
+import PhysicsLanding from "./app/PhysicsLanding.tsx";
+import PhysicsPage from "./app/PhysicsPage.tsx";
+import PrivacyPage from "./app/PrivacyPage.tsx";
+import TermsPage from "./app/TermsPage.tsx";
+import SciencesPage from "./app/SciencesPage.tsx";
+import StatisticsPage from "./app/StatisticsPage.tsx";
+import SubjectsPage from "./app/SubjectsPage.tsx";
+import TutorsPage from "./app/TutorsPage.tsx";
+
+// Component registry - maps component names to actual components
+const COMPONENT_REGISTRY: Record<string, React.ComponentType> = {
+  App,
+  AboutPage,
+  ALevelPage,
+  AccountingPage,
+  AmericanCurriculumPage,
+  APPage,
+  BiologyPage,
+  BlogsPage,
+  BritishCurriculumPage,
+  BusinessPage,
+  ChemistryPage,
+  ContactPage,
+  CurriculumPage,
+  DPHLPage,
+  DPSLPage,
+  EconomicsPage,
+  EngineeringPage,
+  EnglishPage,
+  ExamPreparationPage,
+  FinancePage,
+  GCSEPage,
+  HighSchoolPage,
+  HowItWorksPage,
+  IBCurriculumPage,
+  ChemistryLandingPage,
+  BiologyLanding,
+  ExamPanicBlog,
+  IGCSEMathsLowMarksBlog,
+  IGCSEPage,
+  MathematicsLanding,
+  MathsPage,
+  MiddleSchoolPage,
+  MYPPage,
+  PhysicsLanding,
+  PhysicsPage,
+  PrivacyPage,
+  SciencesPage,
+  TermsPage,
+  StatisticsPage,
+  SubjectsPage,
+  TutorsPage,
+};
+
+export async function render(url: string) {
+  const helmetContext: Record<string, unknown> = {};
+
+  const html = renderToString(
+    <HelmetProvider context={helmetContext}>
+      <StaticRouter location={url}>
+        <Routes>
+          {ROUTES.map(route => {
+            const Component = COMPONENT_REGISTRY[route.component];
+            if (!Component) {
+              console.warn(`[entry-server] Component not found: ${route.component}`);
+              return null;
+            }
+            return <Route key={route.path} path={route.path} element={<Component />} />;
+          })}
+        </Routes>
+      </StaticRouter>
+    </HelmetProvider>
+  );
+
+  const { helmet } = helmetContext as { 
+    helmet: { 
+      title: { toString(): string }; 
+      meta: { toString(): string }; 
+      link: { toString(): string }; 
+      script: { toString(): string } 
+    } 
+  };
+
+  return { html, helmet };
+}

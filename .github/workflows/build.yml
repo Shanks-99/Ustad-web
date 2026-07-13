@@ -1,0 +1,56 @@
+name: Build and Update Production Branch
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install pnpm
+      run: npm install -g pnpm
+      
+    - name: Install dependencies
+      run: pnpm install
+      
+    - name: Build project
+      run: pnpm build
+      
+    - name: Update production branch
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git checkout -B production
+        git rm -rf . > /dev/null 2>&1 || true
+        cp -r dist/client/* .
+        # Tell Vercel this branch is pre-built static output — no build step needed
+        cat > vercel.json << 'VERCELJSON'
+{
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false
+}
+VERCELJSON
+        echo "RewriteEngine On" > .htaccess
+        echo "RewriteBase /" >> .htaccess
+        echo "RewriteCond %{REQUEST_FILENAME} !-f" >> .htaccess
+        echo "RewriteCond %{REQUEST_FILENAME} !-d" >> .htaccess
+        echo "RewriteRule ^ index.html [L,QSA]" >> .htaccess
+        git add .
+        git commit -m "Build: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
+        git push origin production --force
