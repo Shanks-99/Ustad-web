@@ -99,12 +99,6 @@ function ChallengesAccordion({ challenges }: { challenges: Challenge[] }) {
 
 const PARENT_REVIEWS = [
   { name: 'Elyazia Alkaabi', initials: 'EA', location: 'Abu Dhabi, UAE', text: 'He is a very good teacher, he makes the lessons easier to understand and has good ways of getting the information in my mind easily.' },
-  { name: 'Fares Al Kindi', initials: 'FK', location: 'Abu Dhabi, UAE', text: 'I had a great experience with Ustaad. They truly provide some of the best tutors in Abu Dhabi. The teaching style is clear, professional, and very supportive.' },
-  { name: 'Sumayya Alamri', initials: 'SA', location: 'Abu Dhabi, UAE', text: 'I had a very good experience with Ustaad for my daughter. Her tutor is one of the best I have experienced. He explains the concepts very well.' },
-  { name: 'Wadeema Al M', initials: 'WA', location: 'Abu Dhabi, UAE', text: 'Very good tutoring institute with supportive tutors and clear teaching methods. Would definitely recommend to anyone looking for quality education.' },
-  { name: 'Humaid Khalaf', initials: 'HK', location: 'Abu Dhabi, UAE', text: 'A very good place if you want a good teacher for your studies. The tutors really know how to make difficult topics easy to understand.' },
-  { name: 'Zayed Al Teneiji', initials: 'ZT', location: 'Abu Dhabi, UAE', text: 'Best tutoring institution in Abu Dhabi. The tutors are extremely knowledgeable and really care about student success in exams.' },
-  { name: 'Ahmed Als', initials: 'AA', location: 'Abu Dhabi, UAE', text: 'One of the best tutors in Abu Dhabi. His teaching method is very focused and effective. He breaks down complex concepts into simple steps and ensures full understanding.' },
 ];
 
 function ParentsSlider() {
@@ -113,6 +107,7 @@ function ParentsSlider() {
   const go = (i: number) => setIndex(((i % count) + count) % count);
 
   useEffect(() => {
+    if (count <= 1) return;
     const t = setInterval(() => setIndex(p => (p + 1) % count), 6000);
     return () => clearInterval(t);
   }, [count]);
@@ -158,25 +153,27 @@ function ParentsSlider() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="flex items-center justify-center gap-3 mt-5">
-        <button onClick={() => go(index - 1)} aria-label="Previous review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:-translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronLeft className="h-4 w-4 text-white" /></button>
-        <div className="flex items-center gap-2">
-          {PARENT_REVIEWS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Go to review ${i + 1}`}
-              className="rounded-full transition-all duration-300"
-              style={{
-                width: i === index ? 22 : 8,
-                height: 8,
-                background: i === index ? 'linear-gradient(92deg,#f0c96a,#fde68a)' : 'rgba(255,255,255,0.3)',
-              }}
-            />
-          ))}
+      {count > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-5">
+          <button onClick={() => go(index - 1)} aria-label="Previous review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:-translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronLeft className="h-4 w-4 text-white" /></button>
+          <div className="flex items-center gap-2">
+            {PARENT_REVIEWS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => go(i)}
+                aria-label={`Go to review ${i + 1}`}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === index ? 22 : 8,
+                  height: 8,
+                  background: i === index ? 'linear-gradient(92deg,#f0c96a,#fde68a)' : 'rgba(255,255,255,0.3)',
+                }}
+              />
+            ))}
+          </div>
+          <button onClick={() => go(index + 1)} aria-label="Next review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronRight className="h-4 w-4 text-white" /></button>
         </div>
-        <button onClick={() => go(index + 1)} aria-label="Next review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronRight className="h-4 w-4 text-white" /></button>
-      </div>
+      )}
     </div>
   );
 }
@@ -784,6 +781,10 @@ function BiologyAskExpertSection() {
           .biology-ask-expert-content h2 {
             font-size: 24px;
           }
+          .chat-card {
+            aspect-ratio: auto;
+            min-height: 310px;
+          }
         }
 
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -1350,12 +1351,14 @@ export default function BiologyLanding() {
       </section>
 
       {/* SECTION 5: HOW OUR TUTORS TEACH */}
-      <section className="py-12 sm:py-16 bg-[#f8f9fb]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0a1f3d 0%, #0f3575 50%, #0a2a6e 100%)' }}>
+        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(15,74,155,0.45) 0%, transparent 70%)', filter: 'blur(80px)' }} />
+        <BioGrid />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <Eyebrow icon={<Timer className="h-3.5 w-3.5" />} text="Our Method" />
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-[#0a1f3d] leading-tight mb-2">How Our Tutors Teach</h2>
-            <p className="text-[#6b7c93] text-[15px] leading-relaxed">A four-step method built around biology exam mechanics.</p>
+            <Eyebrow icon={<Timer className="h-3.5 w-3.5" />} text="Our Method" dark />
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-white leading-tight mb-2">How Our Tutors Teach</h2>
+            <p className="text-blue-100/55 text-[15px] leading-relaxed">A four-step method built around biology exam mechanics.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1365,18 +1368,18 @@ export default function BiologyLanding() {
               { num: '03', title: 'Exam Practice', desc: 'Fortnightly past paper practice marked together using the official mark scheme, error by error.' },
               { num: '04', title: 'Coursework Coaching', desc: 'IB IA design and A-Level essay drills across the highest-mark criteria.' }
             ].map((step, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-xl border border-[#e2e6ec] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between" style={{ minHeight: '190px' }}>
+              <div key={idx} className="p-6 rounded-xl border border-white/10 shadow-lg flex flex-col justify-between" style={{ minHeight: '190px', background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(110,168,255,0.18)' }}>
                 <div>
-                  <span className="text-[24px] font-black text-[#0f4a9b] block mb-2">{step.num}</span>
-                  <h3 className="text-[16px] font-bold text-[#0a1f3d] mb-2">{step.title}</h3>
-                  <p className="text-[14px] text-[#3a4f6e] leading-[1.5]">{step.desc}</p>
+                  <span className="text-[24px] font-black block mb-2" style={{ color: '#fde68a' }}>{step.num}</span>
+                  <h3 className="text-[16px] font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-[14px] text-blue-100/65 leading-[1.5]">{step.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="mt-8 flex justify-center">
-            <a href="/tutors" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-[14px] text-white transition-all bg-[#0f4a9b] hover:bg-[#0a3a79] shadow-md">
+            <a href="/tutors" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-[14px] text-[#0a1f3d] transition-all bg-[#f0c96a] hover:bg-[#e0b95a] shadow-md">
               Meet Our Tutors <ArrowRight className="h-4 w-4" />
             </a>
           </div>
