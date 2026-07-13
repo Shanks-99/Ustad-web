@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Layout, GoldButton, FinalCTA, StatsBar, SchoolsMarquee } from './shared';
 import SEOHead from './shared/SEOHead';
-import { localBusinessSchema, breadcrumbSchema, serviceSchema, faqSchema } from './shared/schemas';
+import { localBusinessSchema, breadcrumbSchema, serviceSchema, faqSchema, reviewsSchema } from './shared/schemas';
 
 const BOOKING = '/contact#form';
 
@@ -98,12 +98,13 @@ function ChallengesAccordion({ challenges }: { challenges: Challenge[] }) {
 }
 
 const PARENT_REVIEWS = [
+  { name: 'Elyazia Alkaabi', initials: 'EA', location: 'Abu Dhabi, UAE', text: 'He is a very good teacher, he makes the lessons easier to understand and has good ways of getting the information in my mind easily.' },
   { name: 'Fares Al Kindi', initials: 'FK', location: 'Abu Dhabi, UAE', text: 'I had a great experience with Ustaad. They truly provide some of the best tutors in Abu Dhabi. The teaching style is clear, professional, and very supportive.' },
-  { name: 'Sumayya Alamri', initials: 'SA', location: 'Abu Dhabi, UAE', text: 'I had a very good experience with Ustaad for my daughter â€” her tutor is one of the best I have experienced. He explains the concepts very well.' },
+  { name: 'Sumayya Alamri', initials: 'SA', location: 'Abu Dhabi, UAE', text: 'I had a very good experience with Ustaad for my daughter. Her tutor is one of the best I have experienced. He explains the concepts very well.' },
   { name: 'Wadeema Al M', initials: 'WA', location: 'Abu Dhabi, UAE', text: 'Very good tutoring institute with supportive tutors and clear teaching methods. Would definitely recommend to anyone looking for quality education.' },
   { name: 'Humaid Khalaf', initials: 'HK', location: 'Abu Dhabi, UAE', text: 'A very good place if you want a good teacher for your studies. The tutors really know how to make difficult topics easy to understand.' },
   { name: 'Zayed Al Teneiji', initials: 'ZT', location: 'Abu Dhabi, UAE', text: 'Best tutoring institution in Abu Dhabi. The tutors are extremely knowledgeable and really care about student success in exams.' },
-  { name: 'Ahmed Als', initials: 'AA', location: 'Abu Dhabi, UAE', text: 'One of the best tutors in Abu Dhabi â€” his teaching method is very focused and effective. He breaks down complex concepts into simple steps and ensures full understanding.' },
+  { name: 'Ahmed Als', initials: 'AA', location: 'Abu Dhabi, UAE', text: 'One of the best tutors in Abu Dhabi. His teaching method is very focused and effective. He breaks down complex concepts into simple steps and ensures full understanding.' },
 ];
 
 function ParentsSlider() {
@@ -129,28 +130,22 @@ function ParentsSlider() {
             exit={{ opacity: 0, x: -24 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-2xl p-5 sm:p-6 lg:p-8 overflow-hidden"
-            style={{
-              background: 'rgba(10,31,61,0.85)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.15)'
-            }}
+            style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.18)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
           >
-            <div className="absolute top-3 left-4 text-[90px] font-black leading-none select-none pointer-events-none" style={{ color: 'rgba(15,74,155,0.15)', fontFamily: 'Georgia, serif' }}>"</div>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 45%, transparent 65%, rgba(255,255,255,0.03) 100%)' }} />
+            <div className="absolute top-3 left-4 text-[90px] font-black leading-none select-none pointer-events-none" style={{ color: 'rgba(240,201,106,0.12)', fontFamily: 'Georgia, serif' }}>“</div>
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.06) 100%)' }} />
             <div className="relative z-10">
               <div className="flex gap-0.5 mb-3">
                 {[...Array(5)].map((_, si) => (
-                  <Star key={si} className="h-3.5 w-3.5 fill-[#f0c96a] text-[#f0c96a] border-none" />
+                  <Star key={si} className="h-3.5 w-3.5 fill-[#f0c96a] text-[#f0c96a]" />
                 ))}
               </div>
               <p className="text-white/90 text-[15px] sm:text-[16px] leading-[1.7] mb-5 font-medium text-justify">{r.text}</p>
               <div className="flex items-center gap-3">
                 <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-[12px] font-extrabold text-white shrink-0 border border-white/20 notranslate"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-[12px] font-extrabold text-white shrink-0 border-2 border-white/20 notranslate"
                   translate="no"
-                  style={{ background: 'linear-gradient(135deg, rgba(15,74,155,0.5), rgba(15,74,155,0.8))' }}
+                  style={{ background: 'linear-gradient(135deg, rgba(240,201,106,0.3), rgba(199,162,74,0.5))' }}
                 >
                   {r.initials}
                 </div>
@@ -164,7 +159,7 @@ function ParentsSlider() {
         </AnimatePresence>
       </div>
       <div className="flex items-center justify-center gap-3 mt-5">
-        <button onClick={() => go(index - 1)} aria-label="Previous review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:-translate-x-0.5" style={{ background: 'rgba(15,74,155,0.1)', border: '1px solid rgba(15,74,155,0.15)' }}><ChevronLeft className="h-4 w-4 text-[#0f4a9b]" /></button>
+        <button onClick={() => go(index - 1)} aria-label="Previous review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:-translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronLeft className="h-4 w-4 text-white" /></button>
         <div className="flex items-center gap-2">
           {PARENT_REVIEWS.map((_, i) => (
             <button
@@ -175,12 +170,12 @@ function ParentsSlider() {
               style={{
                 width: i === index ? 22 : 8,
                 height: 8,
-                background: i === index ? '#0f4a9b' : 'rgba(15,74,155,0.25)',
+                background: i === index ? 'linear-gradient(92deg,#f0c96a,#fde68a)' : 'rgba(255,255,255,0.3)',
               }}
             />
           ))}
         </div>
-        <button onClick={() => go(index + 1)} aria-label="Next review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:translate-x-0.5" style={{ background: 'rgba(15,74,155,0.1)', border: '1px solid rgba(15,74,155,0.15)' }}><ChevronRight className="h-4 w-4 text-[#0f4a9b]" /></button>
+        <button onClick={() => go(index + 1)} aria-label="Next review" className="flex items-center justify-center w-9 h-9 rounded-full transition-all hover:translate-x-0.5" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}><ChevronRight className="h-4 w-4 text-white" /></button>
       </div>
     </div>
   );
@@ -218,8 +213,8 @@ const biologyAskExpertServiceSchema = {
 
 const BIOLOGY_EXAMPLES = [
   {
-    question: 'How do I draw a monohybrid cross for tall Ã— short pea plants?',
-    answer: 'Tall (T) is dominant, short (t) is recessive. Cross TT Ã— tt gives all Tt in F1 (100% tall). Cross Tt Ã— Tt in F2 gives TT, Tt, Tt, tt â€” a 3:1 tall to short ratio.',
+    question: 'How do I draw a monohybrid cross for tall × short pea plants?',
+    answer: 'Tall (T) is dominant, short (t) is recessive. Cross TT × tt gives all Tt in F1 (100% tall). Cross Tt × Tt in F2 gives TT, Tt, Tt, tt, giving a 3:1 tall to short ratio.',
   },
   {
     question: 'Why does the enzyme activity drop after 40 degrees?',
@@ -347,11 +342,11 @@ function BiologyChatMockup() {
             <div className="timer-chip">
               {prefersReducedMotion || phase === 'answer' ? (
                 <>
-                  <span className="timer-value-solved">00:12</span> Â· Solved
+                  <span className="timer-value-solved">00:12</span> · Solved
                 </>
               ) : (
                 <>
-                  00:{String(timerSec).padStart(2, '0')} Â· Waiting for specialist
+                  00:{String(timerSec).padStart(2, '0')} · Waiting for specialist
                 </>
               )}
             </div>
@@ -447,7 +442,7 @@ function BiologyAskExpertSection() {
             <a
               className="btn-whatsapp"
               href="https://wa.me/971561249005?text=Hi%20Ustaad%2C%20I%20have%20a%20biology%20question"
-              aria-label="Ask a biology expert on WhatsApp â€” opens WhatsApp with your message pre-filled"
+              aria-label="Ask a biology expert on WhatsApp. Opens WhatsApp with your message pre-filled"
               target="_blank"
               rel="noopener"
               onClick={() => {
@@ -472,7 +467,7 @@ function BiologyAskExpertSection() {
                 }
               }}
             >
-              Prefer the form? Send it here â†’
+              Prefer the form? Send it here →
             </a>
           </div>
 
@@ -921,9 +916,9 @@ export default function BiologyLanding() {
   ];
 
   const journey = [
-    { years: 'Year 7â€“9', title: 'Foundation (KS3)', desc: 'KS3 biology builds organ systems, cells, and scientific vocabulary early.', link: { label: 'Core sciences', href: '/middle-school' } },
-    { years: 'Year 10â€“11', title: 'IGCSE / GCSE', desc: 'Cambridge 0610, Edexcel 4BI1, and GCSE Biology theory and ATP prep.', link: { label: 'IGCSE biology tutor Abu Dhabi', href: '/igcse' } },
-    { years: 'Year 12â€“13', title: 'A-Level / IB / AP', desc: 'A-Level Biology, IB Biology SL/HL, and College Board AP Biology support.', link: { label: 'A-Level biology tutor Abu Dhabi', href: '/a-level' } }
+    { years: 'Year 7–9', title: 'Foundation (KS3)', desc: 'KS3 biology builds organ systems, cells, and scientific vocabulary early.', link: { label: 'Core sciences', href: '/middle-school' } },
+    { years: 'Year 10–11', title: 'IGCSE / GCSE', desc: 'Cambridge 0610, Edexcel 4BI1, and GCSE Biology theory and ATP prep.', link: { label: 'IGCSE biology tutor Abu Dhabi', href: '/igcse' } },
+    { years: 'Year 12–13', title: 'A-Level / IB / AP', desc: 'A-Level Biology, IB Biology SL/HL, and College Board AP Biology support.', link: { label: 'A-Level biology tutor Abu Dhabi', href: '/a-level' } }
   ];
 
   const topics = [
@@ -1075,11 +1070,13 @@ export default function BiologyLanding() {
         title="Biology Tutor Abu Dhabi | IGCSE, A-Level & IB | Ustaad"
         description="Specialist 1-to-1 biology tutors in Abu Dhabi for IGCSE, A-Level and IB. Master genetics, physiology and IA. Ideal for medicine pathways. Free trial."
         canonical="/biology-tutor-abu-dhabi"
+        ogImage="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg"
         schema={[
           localBusinessSchema,
           breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Biology Tutor Abu Dhabi', url: '/biology-tutor-abu-dhabi' }]),
           serviceSchema('Private Biology Tutoring', 'One-to-one biology tutors in Abu Dhabi for IGCSE, GCSE, A-Level, IB, and AP students. Trusted by Abu Dhabi families since 2015.', '/biology-tutor-abu-dhabi'),
           faqSchema(faqs.map(f => ({ q: f.q, a: f.plain }))),
+          ...reviewsSchema,
         ]}
       />
 
@@ -1091,7 +1088,7 @@ export default function BiologyLanding() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-28 flex flex-col items-center text-center">
           <div className="grid lg:grid-cols-2 gap-12 items-center text-left w-full">
             <div>
-              <Eyebrow icon={<MapPin className="h-3.5 w-3.5" />} text="Abu Dhabi Â· UAE" dark />
+              <Eyebrow icon={<MapPin className="h-3.5 w-3.5" />} text="Abu Dhabi · UAE" dark />
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.08] tracking-tight mb-5">
                 Biology That<br />
                 <span className="text-[#0f4a9b]" style={{ background: 'linear-gradient(92deg,#3b7fd4 0%,#0f4a9b 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Opens Medicine</span>
@@ -1108,19 +1105,15 @@ export default function BiologyLanding() {
                 <GoldButton href={BOOKING} className="px-7 py-3.5 text-sm font-semibold rounded-lg bg-[#0f4a9b] text-white hover:bg-[#0a3a79] transition duration-200 shadow-lg">
                   Book Free Biology Diagnostic
                 </GoldButton>
-                <a href="https://wa.me/971561249005" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-3.5 rounded-lg text-sm font-bold text-white transition bg-white/5 border border-white/10 hover:bg-white/10">
-                  <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] fill-[#25D366] shrink-0" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.832L.057 23.477a.5.5 0 0 0 .608.61l5.801-1.525A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 0 1-5.003-1.37l-.36-.213-3.44.905.919-3.355-.234-.375A9.818 9.818 0 1 1 12 21.818z"/></svg>
-                  WhatsApp Us
-                </a>
               </div>
             </div>
             <div className="hidden lg:block relative">
               <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/5">
                 <picture>
-                  <source srcSet="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.png" type="image/png" />
+                  <source srcSet="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg" type="image/jpeg" />
                   <img
-                    src="/UpdatedImages/private-tutor-student-1-to-1-session-uae.jpeg"
-                    alt="Ustaad biology tutor guiding an Abu Dhabi student through IGCSE and A-Level biology topics in an online 1-to-1 session."
+                    src="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg"
+                    alt="Ustaad biology tutor guiding an Abu Dhabi student through active transport and biology topics in an online 1-to-1 session."
                     className="w-full h-[400px] object-cover"
                     loading="eager"
                   />
@@ -1492,6 +1485,29 @@ export default function BiologyLanding() {
         </div>
       </section>
 
+      {/* NEW TRUSTED BY PARENTS SLIDER */}
+      <section className="py-10 sm:py-12 lg:py-14" style={{ background: 'linear-gradient(135deg, #0a1f3d 0%, #0f3a7a 50%, #1e5ba8 100%)' }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5 sm:mb-6">
+            <div className="flex-1">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight">
+                Trusted by{' '}
+                <span style={{ background: 'linear-gradient(92deg,#f0c96a 0%,#fde68a 50%,#C7A24A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Parents</span>
+              </h2>
+            </div>
+            <div className="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full" style={{ background: 'rgba(240,201,106,0.12)', border: '1px solid rgba(240,201,106,0.25)' }}>
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, si) => (
+                  <Star key={si} className="h-3 w-3 fill-[#f0c96a] text-[#f0c96a]" />
+                ))}
+              </div>
+              <span className="text-[11px] font-bold ml-1" style={{ color: '#f0c96a' }}>5.0 · Verified Google Review</span>
+            </div>
+          </div>
+          <ParentsSlider />
+        </div>
+      </section>
+
       {/* SECTION 8: ACROSS ABU DHABI */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1695,6 +1711,23 @@ export default function BiologyLanding() {
                 </div>
               </div>
             </a>
+
+            <a
+              href="/maths-tutor-abu-dhabi"
+              className="group block rounded-2xl p-5 sm:p-6 transition-all bg-white border border-[#e2e6ec] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-4">
+                <div className="shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#0f4a9b]/8 text-[#0f4a9b]">
+                  <Calculator className="w-6 h-6" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-[16px] font-extrabold text-[#0a1f3d] mb-1 flex items-center gap-1.5 group-hover:text-[#0f4a9b] transition-colors">
+                    Maths Tutor Abu Dhabi <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition" />
+                  </h3>
+                  <p className="text-[13px] text-gray-600 leading-relaxed">For algebra fluency, past-paper drilling, and IGCSE 0580 or IB Maths AA and AI support.</p>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -1713,7 +1746,7 @@ export default function BiologyLanding() {
         button1Text="Book Your Free Trial"
         button1Href={BOOKING}
         button2Text="Ask Your Question"
-        subtext1="Free Trial â€¢ No Commitment"
+        subtext1="Free Trial • No Commitment"
         subtext2="Stuck on a topic? Send it across."
       />
 
