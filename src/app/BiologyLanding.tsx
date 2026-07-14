@@ -1072,6 +1072,10 @@ export default function BiologyLanding() {
         description="Specialist 1-to-1 biology tutors in Abu Dhabi for IGCSE, A-Level and IB. Master genetics, physiology and IA. Ideal for medicine pathways. Free trial."
         canonical="/biology-tutor-abu-dhabi"
         ogImage="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg"
+        placename="Abu Dhabi, UAE"
+        geoPosition="24.4539;54.3773"
+        geoRegion="AE-AZ"
+        robots="noindex,follow"
         schema={[
           localBusinessSchema,
           breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Biology Tutor Abu Dhabi', url: '/biology-tutor-abu-dhabi' }]),
@@ -1111,12 +1115,16 @@ export default function BiologyLanding() {
             <div className="hidden lg:block relative">
               <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/5">
                 <picture>
+                  <source srcSet="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.webp" type="image/webp" />
                   <source srcSet="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg" type="image/jpeg" />
                   <img
                     src="/UpdatedImages/abu-dhabi-biology-tutor-student-online-session.jpg"
                     alt="Ustaad biology tutor guiding an Abu Dhabi student through active transport and biology topics in an online 1-to-1 session."
                     className="w-full h-[400px] object-cover"
+                    width={800}
+                    height={400}
                     loading="eager"
+                    fetchPriority="high"
                   />
                 </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1f3d]/60 to-transparent" />

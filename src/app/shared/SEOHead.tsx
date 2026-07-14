@@ -10,12 +10,17 @@ interface SEOHeadProps {
   author?: string;
   placename?: string;
   ogType?: string;
+  /** Geo coordinates as "lat;lng" (semicolon-delimited). Defaults to Dubai. */
+  geoPosition?: string;
+  /** ISO 3166-2 region code, e.g. "AE" or "AE-AZ" (Abu Dhabi). */
+  geoRegion?: string;
 }
 
 const BASE_URL = "https://ustaad.ae";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/UpdatedImages/private-tutor-student-1-to-1-session-uae.webp`;
 
-export default function SEOHead({ title, description, canonical, ogImage, schema, robots = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1", author, placename = "Dubai, UAE", ogType = "website" }: SEOHeadProps) {
+export default function SEOHead({ title, description, canonical, ogImage, schema, robots = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1", author, placename = "Dubai, UAE", ogType = "website", geoPosition = "25.2048;55.2708", geoRegion = "AE" }: SEOHeadProps) {
+  const icbm = geoPosition.replace(";", ", ");
   const fullCanonical = `${BASE_URL}${canonical}`;
   const image = ogImage ? `${BASE_URL}${ogImage}` : DEFAULT_OG_IMAGE;
   const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
@@ -50,10 +55,10 @@ export default function SEOHead({ title, description, canonical, ogImage, schema
       <meta name="twitter:image" content={image} />
 
       {/* Geo tags for local SEO */}
-      <meta name="geo.region" content="AE" />
+      <meta name="geo.region" content={geoRegion} />
       <meta name="geo.placename" content={placename} />
-      <meta name="geo.position" content="25.2048;55.2708" />
-      <meta name="ICBM" content="25.2048, 55.2708" />
+      <meta name="geo.position" content={geoPosition} />
+      <meta name="ICBM" content={icbm} />
 
       {/* JSON-LD structured data */}
       {schemas.map((s, i) => (

@@ -574,6 +574,9 @@ export default function MathematicsLanding() {
         title="Maths Tutor Abu Dhabi | IGCSE, A-Level, IB Maths — Ustaad"
         description="One-to-one maths tutors in Abu Dhabi fixing algebra, fractions, and word problems. IGCSE 0580, A-Level, IB AA/AI, and AP maths support across Abu Dhabi. Trusted since 2015."
         canonical="/maths-tutor-abu-dhabi"
+        placename="Abu Dhabi, UAE"
+        geoPosition="24.4539;54.3773"
+        geoRegion="AE-AZ"
         robots={isTestRoute ? 'noindex,nofollow' : undefined}
         schema={[
           localBusinessSchema,

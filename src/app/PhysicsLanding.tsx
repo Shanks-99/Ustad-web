@@ -468,6 +468,9 @@ export default function PhysicsLanding() {
         title="Physics Tutor Abu Dhabi | IGCSE, A-Level & IB | Ustaad"
         description="Trusted 1-to-1 physics tutors in Abu Dhabi for IGCSE, A-Level and IB. Rebuild weak topics, drill past papers, and lift exam grades. Book a free trial."
         canonical="/physics-tutor-abu-dhabi"
+        placename="Abu Dhabi, UAE"
+        geoPosition="24.4539;54.3773"
+        geoRegion="AE-AZ"
         schema={[
           localBusinessSchema,
           breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Physics Tutor Abu Dhabi', url: '/physics-tutor-abu-dhabi' }]),
